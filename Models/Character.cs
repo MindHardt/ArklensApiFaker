@@ -4,6 +4,7 @@ using static Bogus.DataSets.Name;
 namespace ArklensApiFaker.Models;
 
 public record Character(
+	Guid Id,
 	PersonalInfo PersonalInfo,
 	Race Race,
 	Class Class,

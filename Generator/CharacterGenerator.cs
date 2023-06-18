@@ -9,6 +9,7 @@ public class CharacterGenerator : ICharacterGenerator
 	private readonly Faker _faker = new("ru");
 
 	public Character Generate() => new(
+			Guid.NewGuid(),
 			GeneratePersonalInfo(_faker.PickRandom<Gender>()),
 			GenerateRace(),
 			GenerateClass(),
