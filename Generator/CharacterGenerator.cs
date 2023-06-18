@@ -122,7 +122,7 @@ public class CharacterGenerator : ICharacterGenerator
 		_faker.Random.Int(0, 9),
 		_faker.Random.Int(0, 9));
 
-	private IReadOnlyCollection<Item> GenerateItems() => _faker.Make(
+	private IReadOnlyCollection<Item> GenerateItems() => _faker.MakeLazy(
 		_faker.Random.Int(1, 20),
 		GenerateItem)
 		.ToArray();
@@ -130,6 +130,7 @@ public class CharacterGenerator : ICharacterGenerator
 	private Item GenerateItem() => new(
 		_faker.Lorem.Word(),
 		GeneratePrice(),
+		_faker.Image.LoremFlickrUrl(),
 		_faker.Random.Int(1, 20));
 
 	private Money GeneratePrice() => new(

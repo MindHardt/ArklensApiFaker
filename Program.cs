@@ -1,5 +1,9 @@
 using ArklensApiFaker.Generator;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Http.Json;
+using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
+using System.Net.Mime;
 using System.Text.Encodings.Web;
 using System.Text.Json.Serialization;
 
@@ -14,7 +18,7 @@ internal class Program
 		builder.Services.AddEndpointsApiExplorer();
 		builder.Services.AddSwaggerGen();
 		builder.Services.AddScoped<ICharacterGenerator, CharacterGenerator>();
-		builder.Services.Configure<JsonOptions>(options =>
+		builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
 		{
 			options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
 			options.SerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
@@ -32,11 +36,22 @@ internal class Program
 
 		app.UseHttpsRedirection();
 
-		app.MapGet("/character/fake", (ICharacterGenerator charGen) =>
+		app.MapGet("/character/fake", (
+			[FromServices] ICharacterGenerator charGen, 
+			[FromQuery] int? count) =>
 		{
-			return charGen.Generate();
+			count ??= 1;
+			return Enumerable.Range(1, count.Value)
+				.Select(_ => charGen.Generate())
+				.ToArray();
 		})
 		.WithName("GenerateCharacter")
+		.WithOpenApi();
+		app.MapGet("/map", () =>
+		{
+			return Results.File(File.OpenRead("Files\\Map.png"), "image/png", "map.png");
+		})
+		.WithName("GetMap")
 		.WithOpenApi();
 
 		app.Run();
