@@ -53,7 +53,8 @@ public class CharacterGenerator : ICharacterGenerator
 	};
 
 	private Class GenerateClass() => new(
-		_faker.PickRandom(_classNames));
+		_faker.PickRandom(_classNames),
+		_faker.Random.Int(1, 20));
 
 	private readonly string[] _classNames =
 	{

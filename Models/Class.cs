@@ -1,6 +1,7 @@
 ﻿namespace ArklensApiFaker.Models;
 
 public record Class(
-	string Name)
+	string Name,
+	int Level)
 {
 }
