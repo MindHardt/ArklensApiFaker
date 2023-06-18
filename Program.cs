@@ -45,7 +45,7 @@ internal class Program
 		.WithOpenApi();
 		app.MapGet("/map", () =>
 		{
-			return Results.File(File.OpenRead("Files\\Map.png"), "image/png", "map.png");
+			return Results.File(File.OpenRead("Map.png"), "image/png", "map.png");
 		})
 		.WithName("GetMap")
 		.WithOpenApi();

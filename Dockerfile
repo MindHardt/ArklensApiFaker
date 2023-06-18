@@ -19,4 +19,5 @@ RUN dotnet publish "ArklensApiFaker.csproj" -c Release -o /app/publish /p:UseApp
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY Map.png Map.png
 ENTRYPOINT ["dotnet", "ArklensApiFaker.dll"]
