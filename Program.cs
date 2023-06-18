@@ -1,9 +1,5 @@
 using ArklensApiFaker.Generator;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http.Headers;
-using System.Net.Mime;
 using System.Text.Encodings.Web;
 using System.Text.Json.Serialization;
 
